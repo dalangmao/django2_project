@@ -124,3 +124,79 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d]'
+        },
+        'filters': {
+        },
+        'handlers': {
+            'mail_admins': {
+                'level': 'ERROR',
+                'class': 'django.utils.log.AdminEmailHandler',
+                'include_html': True,
+            },
+            'default': {
+                'level': 'DEBUG',
+                'class': 'logging.handlers.RotatingFileHandler',
+                'filename': 'log/all.log',
+                'maxBytes': 1024*10244*5,
+                'backupCount': 5,
+                'formatter': 'standard',
+            },
+            'error': {
+                'level': 'ERROR',
+                'class': 'logging.handlers.RotatingFileHandler',
+                'filename': 'log/error.log',
+                'maxBytes': 1024*1024*5,
+                'backupCount': 5,
+                'formatter': 'standard',
+            },
+            'console': {
+                'level': 'DEBUG',
+                'class': 'logging.handlers',
+                'formatter': 'standard',
+            },
+            'request_handler': {
+                'level': 'DEBUG',
+                'class': 'logging.handlers.RotatingFileHandler',
+                'filename': 'log/script.log',
+                'maxBytes': 1024*1024*5,
+                'backupCount': 5,
+            },
+            'scripts_handler': {
+                'level': 'DEBUG',
+                'class': 'logging.handlers.RotatingFileHandler',
+                'filename': 'log/script.log',
+                'maxBytes': 1024*1024*5,
+                'backupCount': 5,
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['default', 'console'],
+                'level': 'DEBUG',
+                'propagate': False,
+            },
+            'django.request': {
+                'handlers': ['request_handler'],
+                'level': 'DEBUG',
+                'propagate': False,
+            },
+            'scripts': {
+                'handlers': ['scripts_handler'],
+                'level': 'INFO',
+                'propagate': False,
+            },
+            'blog.views': {
+                'handlers': ['default', 'error'],
+                'level': 'DEBUG',
+                'propagate': True
+            },
+        },
+    },
+}
