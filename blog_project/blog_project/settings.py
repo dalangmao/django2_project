@@ -64,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blog.views.global_setting',
             ],
         },
     },
@@ -77,8 +78,15 @@ WSGI_APPLICATION = 'blog_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'blogdb',
+        'USER': 'root',
+        'PASSWORD': 'dong1990',
+        'HOST': '',
+        'PORT': '',
+        #'OPTIONS': {
+        #    'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        #    },
     }
 }
 
@@ -120,10 +128,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+
+
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+#custom auth user model
+AUTH_USER_MODEL = 'blog.User'
+
+SITE_NAME = 'my blog'
+SITE_DESC = 'python django learning'
+WEIBO_SINA = 'http://weibo.sina.com'
+WEIBO_TENCENT = 'http://weibo.qq.com'
+PRO_RSS = 'http://ww2w.baidu.com'
+PRO_EMAIL = '1228291335@qq.com'
 
 LOGGING = {
     'version': 1,

@@ -1,0 +1,13 @@
+
+{% load staticfiles %}
+{% block archives_content %}
+<div class="block"><!-- Archives block -->
+    <h3>Archives</h3>
+    {% for archive in archive_list %}
+        <ul class="archives">
+            <li><a title="2019" href="{% url 'archive' %}?year={{ archive | slice:':4' }}month={{ archive | slice:'4:6' }}">{{ archive }}</a></li>
+        </ul>
+    {% endfor %}
+</div>
+
+{% endblock %}
